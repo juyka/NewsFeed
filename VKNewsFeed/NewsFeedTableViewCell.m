@@ -11,7 +11,7 @@
 #import "NewsFeedItem.h"
 #import "NewsFeedCollectionViewCell.h"
 #import "AndMoreCollectionViewCell.h"
-
+#import "RequestManager.h"
 @interface NewsFeedTableViewCell ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic) NewsFeedItem *newsFeedItem;
@@ -19,7 +19,9 @@
 
 @end
 
-@implementation NewsFeedTableViewCell
+@implementation NewsFeedTableViewCell {
+	CGFloat _cellWidth;
+}
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -62,16 +64,15 @@
 	
 	CGFloat width = self.collectionView.frame.size.width;
 	NSInteger cellsInRow = 4;
-	CGFloat cellWidth = (int)((width - 15) / cellsInRow);
-	CGSize cellSize = {cellWidth, cellWidth};
+	_cellWidth = (int)((width - 15) / cellsInRow);
+	CGSize cellSize = {_cellWidth, _cellWidth};
 	
 	CGFloat inset = 5;
 	UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
 	layout.minimumInteritemSpacing = inset;
 	layout.minimumLineSpacing = inset;
 	layout.itemSize = cellSize;
-	self.collectionViewHeight.constant = (self.newsFeedItem.attachments.count > 1) ? cellWidth : 0;
-	
+	self.collectionViewHeight.constant = (self.newsFeedItem.attachments.count) ? _cellWidth : 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -113,9 +114,12 @@
 - (IBAction)likeIt:(id)sender {
 	UIButton *button = sender;
 	button.selected = !button.selected;
-	self.newsFeedItem.userLikes = @(button.selected);
-	self.newsFeedItem.likeCount = @(self.newsFeedItem.likeCount.intValue + (button.selected - !button.selected));
-	[self configure:self.newsFeedItem];
+	NSString * objectID = [NSString stringWithFormat:@"%@", self.newsFeedItem.postID];
+	[RequestManager.manager changeUserLikes:button.selected itemId:objectID withBlock:^(BOOL userLikes, NSNumber *likesCount) {
+		self.newsFeedItem.userLikes = @(userLikes);
+		self.newsFeedItem.likeCount = likesCount;
+		[self configure:self.newsFeedItem];
+	}];
 }
 
 

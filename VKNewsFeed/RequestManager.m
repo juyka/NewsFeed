@@ -67,4 +67,23 @@
 	}];
 }
 
+- (void)changeUserLikes:(BOOL)userLikes itemId:(NSString *)itemID withBlock:(void (^)(BOOL userLikes, NSNumber * likesCount))block {
+	NSString *method = [NSString stringWithFormat:@"likes.%@", userLikes ? @"add" : @"delete"];
+	VKRequest * request = [VKRequest requestWithMethod:method andParameters:@{@"type": @"post",
+																			  @"item_id": itemID} andHttpMethod:@"GET"];
+	[request executeWithResultBlock:^(VKResponse * response) {
+		
+		NSNumber* likesCount = response.json[@"response"][@"likes"];
+		block(userLikes, likesCount);
+	} errorBlock:^(NSError * error) {
+		if (error.code != VK_API_ERROR) {
+			[error.vkError.request repeat];
+		}
+		else {
+			NSLog(@"VK error: %@", error);
+		}
+	}];
+
+}
+
 @end
