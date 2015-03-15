@@ -15,6 +15,7 @@
 @property (nonatomic, retain) NSNumber * date;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSNumber * postID;
+@property (nonatomic, retain) NSNumber * ownerID;
 @property (nonatomic, retain) NSNumber * likeCount;
 @property (nonatomic, retain) NSNumber * userLikes;
 @property (nonatomic, retain) NSArray * attachments;

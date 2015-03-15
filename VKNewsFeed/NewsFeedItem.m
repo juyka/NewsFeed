@@ -14,6 +14,7 @@
 @dynamic date;
 @dynamic text;
 @dynamic postID;
+@dynamic ownerID;
 @dynamic likeCount;
 @dynamic userLikes;
 @dynamic attachments;

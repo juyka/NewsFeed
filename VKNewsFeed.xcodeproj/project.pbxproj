@@ -136,6 +136,7 @@
 				D614B8061AB0E06900400E62 /* VKNewsFeed.xcdatamodeld */,
 				D6D16E901AB41F0800E3220A /* NewsFeedItem.h */,
 				D6D16E911AB41F0800E3220A /* NewsFeedItem.m */,
+				D6D16E8B1AB1E9AC00E3220A /* Images.xcassets */,
 				D614B7FF1AB0E06900400E62 /* Supporting Files */,
 				D614B8281AB0E21500400E62 /* RequestManager.h */,
 				D614B8291AB0E21500400E62 /* RequestManager.m */,
@@ -148,7 +149,6 @@
 		D614B7FF1AB0E06900400E62 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D6D16E8B1AB1E9AC00E3220A /* Images.xcassets */,
 				D614B8001AB0E06900400E62 /* Info.plist */,
 				D614B8011AB0E06900400E62 /* main.m */,
 			);

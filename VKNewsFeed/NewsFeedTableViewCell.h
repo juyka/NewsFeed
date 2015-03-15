@@ -20,6 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 
 
-- (void)configure:(NewsFeedItem *)item;
+- (void)configure:(NewsFeedItem *)item :(CGFloat)itemSide;
 
 @end

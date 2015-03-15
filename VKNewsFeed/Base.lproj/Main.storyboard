@@ -30,14 +30,8 @@
                                                     <rect key="frame" x="8" y="8" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="1a3-9o-ATh"/>
-                                                        <constraint firstAttribute="width" constant="63" id="24L-QS-eun"/>
                                                         <constraint firstAttribute="height" constant="50" id="H1J-hd-2Q5"/>
                                                     </constraints>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="24L-QS-eun"/>
-                                                        </mask>
-                                                    </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjF-eT-I15" userLabel="name">
                                                     <rect key="frame" x="66" y="8" width="526" height="17"/>
@@ -82,7 +76,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="85" id="Hpk-xd-pnj"/>
                                                     </constraints>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HY3-E7-MbB">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HY3-E7-MbB">
                                                         <size key="itemSize" width="81" height="85"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -151,28 +145,16 @@
                                                 <constraint firstItem="UPL-ym-xW8" firstAttribute="top" secondItem="pjF-eT-I15" secondAttribute="bottom" constant="9" id="MyW-76-B6f"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="fQG-Ac-m4i" secondAttribute="trailing" id="OdF-Cn-WA0"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="glf-RU-Tk5" secondAttribute="bottom" id="Pib-kA-FwM"/>
-                                                <constraint firstItem="cCh-64-26U" firstAttribute="bottom" secondItem="vLy-Rj-ohO" secondAttribute="bottomMargin" id="RLK-0v-7AT"/>
                                                 <constraint firstItem="dR8-yt-oyx" firstAttribute="top" secondItem="vLy-Rj-ohO" secondAttribute="topMargin" id="SIR-vS-Ryj"/>
                                                 <constraint firstItem="pjF-eT-I15" firstAttribute="top" secondItem="vLy-Rj-ohO" secondAttribute="topMargin" id="Ucs-F3-wH6"/>
                                                 <constraint firstItem="cCh-64-26U" firstAttribute="top" secondItem="4Yz-Jz-Auc" secondAttribute="bottom" constant="10" id="UgX-Xy-i39"/>
                                                 <constraint firstItem="fQG-Ac-m4i" firstAttribute="leading" secondItem="vLy-Rj-ohO" secondAttribute="leadingMargin" id="Z4k-rK-7mf"/>
-                                                <constraint firstItem="glf-RU-Tk5" firstAttribute="bottom" secondItem="vLy-Rj-ohO" secondAttribute="bottomMargin" id="b4v-9r-dY2"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="pjF-eT-I15" secondAttribute="trailing" id="c56-gv-O7t"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="pjF-eT-I15" secondAttribute="trailing" id="dwm-5D-Lyn"/>
                                                 <constraint firstItem="glf-RU-Tk5" firstAttribute="trailing" secondItem="vLy-Rj-ohO" secondAttribute="trailingMargin" id="gF9-Mi-bbb"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="UPL-ym-xW8" secondAttribute="trailing" id="oXp-QV-OOI"/>
                                                 <constraint firstItem="fQG-Ac-m4i" firstAttribute="top" secondItem="dR8-yt-oyx" secondAttribute="bottom" constant="8" id="tCc-Ss-PEC"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="cCh-64-26U" secondAttribute="bottom" id="tSm-UZ-DkW"/>
                                                 <constraint firstItem="pjF-eT-I15" firstAttribute="leading" secondItem="dR8-yt-oyx" secondAttribute="trailing" constant="8" id="wqS-dR-XJb"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="c56-gv-O7t"/>
-                                                    <exclude reference="oXp-QV-OOI"/>
-                                                    <exclude reference="RLK-0v-7AT"/>
-                                                    <exclude reference="b4v-9r-dY2"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="collectionView" destination="4Yz-Jz-Auc" id="SzH-92-KDh"/>

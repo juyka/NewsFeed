@@ -10,6 +10,7 @@
 #import "RequestManager.h"
 #import "NewsFeedItem.h"
 #import "NewsFeedTableViewCell.h"
+#import <ObjectiveRecord.h>
 #import <VKSdk.h>
 
 
@@ -18,8 +19,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSArray *dataSource;
 @property (nonatomic) UIRefreshControl *refreshControl;
+@property (nonatomic) CGFloat itemSide;
 @end
-//437437
 
 @implementation ViewController
 
@@ -29,9 +30,8 @@
 	self.refreshControl = [[UIRefreshControl alloc]init];
 	[self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
 	[self.tableView addSubview:self.refreshControl];
-	
+	self.dataSource = [NewsFeedItem where:nil order:@{@"date": @"DESC"} limit:@(50)];
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
-	self.tableView.estimatedRowHeight = 100.0f;
 	self.tableView.tableFooterView = UIView.new;
 }
 
@@ -49,6 +49,7 @@
 	NSString *clientID = @"4823123";
 	[VKSdk initializeWithDelegate:self andAppId:clientID];
 	if ([VKSdk wakeUpSession]){
+		
 		[self refresh:self];
 	} else {
 		NSArray *permissions = @[VK_PER_WALL, VK_PER_FRIENDS, VK_PER_PHOTOS];
@@ -56,14 +57,24 @@
 	}
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	CGFloat margin = 8;
+	CGFloat width = self.view.frame.size.width - 2 * margin;
+	NSInteger cellsInRow = 4;
+	self.itemSide = (int)((width - margin * (cellsInRow - 1)) / cellsInRow);
+	
+	[self.tableView reloadData];
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
 	NewsFeedItem *item = self.dataSource[indexPath.row];
 	NSString *cellID = @"Cell";
 	NewsFeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
 	
-	[cell configure:item];
-
+	[cell configure:item :self.itemSide];
+	
 	return cell;
 }
 

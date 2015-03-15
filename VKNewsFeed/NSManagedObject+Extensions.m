@@ -52,7 +52,7 @@
 						NSNumber *sourceID = object[@"source_id"];
 						item.sourceName = dictionary[@(abs(sourceID.intValue))][@"sourceName"];
 						item.sourceImage = dictionary[@(abs(sourceID.intValue))][@"sourceImage"];
-						
+						item.ownerID = sourceID;
 						id repost = [object[@"copy_history"] lastObject];
 						NSNumber *repostID = repost[@"owner_id"];
 						item.repostName = dictionary[@(abs(repostID.intValue))][@"sourceName"];
@@ -60,7 +60,7 @@
 						[attachments addObjectsFromArray:object[@"attachments"]];
 						[attachments addObjectsFromArray:repost[@"attachments"]];
 		
-		NSMutableArray *filteredAttachments = NSMutableArray.new;// = [attachments filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"type != photo"]];
+						NSMutableArray *filteredAttachments = NSMutableArray.new;
 						[attachments each:^(id attachment) {
 							NSString *type = attachment[@"type"];
 							if ([type isEqualToString:@"photo"]) {
@@ -68,11 +68,14 @@
 								[filteredAttachments addObject:imageURL];
 							}
 						}];
-		item.attachments = filteredAttachments;
+		
+						item.attachments = filteredAttachments;
+						[CoreDataManager.sharedManager saveContext];
 						return item;
 
 					}];
 	
+
 	return newsFeedItems;
 }
 

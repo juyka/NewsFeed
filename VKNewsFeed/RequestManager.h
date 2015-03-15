@@ -13,7 +13,6 @@
 + (instancetype)manager;
 
 - (void)newsFeed:(void(^)(NSArray* entries))block;
-- (void)loadMoreNews:(void(^)(NSArray* entries))block;
-- (void)changeUserLikes:(BOOL)userLikes itemId:(NSString *)itemID withBlock:(void (^)(BOOL userLikes, NSNumber * likesCount))block;
+- (void)changeUserLikes:(BOOL)userLikes itemId:(NSNumber *)itemID ownerId:(NSNumber *)ownerID withBlock:(void (^)(BOOL userLikes, NSNumber * likesCount))block;
 
 @end
