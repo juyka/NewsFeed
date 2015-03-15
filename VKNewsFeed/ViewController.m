@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSArray *dataSource;
+@property (nonatomic) UIRefreshControl *refreshControl;
 @end
 //437437
 
@@ -25,9 +26,22 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+	self.refreshControl = [[UIRefreshControl alloc]init];
+	[self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+	[self.tableView addSubview:self.refreshControl];
+	
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
 	self.tableView.estimatedRowHeight = 100.0f;
 	self.tableView.tableFooterView = UIView.new;
+}
+
+- (void)refresh:(id)sender {
+	[self.refreshControl beginRefreshing];
+	[RequestManager.manager newsFeed:^(NSArray *entries) {
+		self.dataSource = entries;
+		[self.tableView reloadData];
+		[self.refreshControl endRefreshing];
+	}];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -35,12 +49,9 @@
 	NSString *clientID = @"4823123";
 	[VKSdk initializeWithDelegate:self andAppId:clientID];
 	if ([VKSdk wakeUpSession]){
-		[RequestManager.manager newsFeed:^(NSArray *entries) {
-			self.dataSource = entries;
-			[self.tableView reloadData];
-		}];
+		[self refresh:self];
 	} else {
-		NSArray *permissions = @[VK_PER_WALL,VK_PER_FRIENDS,VK_PER_PHOTOS];
+		NSArray *permissions = @[VK_PER_WALL, VK_PER_FRIENDS, VK_PER_PHOTOS];
 		[VKSdk authorize:permissions revokeAccess:YES];
 	}
 }
@@ -60,6 +71,7 @@
 	
 	return self.dataSource.count;
 }
+
 
 #pragma mark VKSdkDelegate methods ---------------------------
 

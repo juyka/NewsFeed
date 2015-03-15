@@ -23,7 +23,6 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	
 	self.collectionView.dataSource = self;
 	self.collectionView.delegate = self;
 	
@@ -40,7 +39,7 @@
 	NSURL *url = [NSURL URLWithString:item.sourceImage];
 	NSURLRequest *request = [NSURLRequest requestWithURL:url];
 	UIImage *placeholder = [UIImage imageNamed:@"placeholder"];
- 
+
 	__weak NewsFeedTableViewCell *weakCell = self;
  
 	[self.sourceImageView setImageWithURLRequest:request
@@ -56,6 +55,7 @@
 	self.text.text = item.text;
 	self.likeCount.text = [NSString stringWithFormat:@"%@", item.likeCount];
 	self.likeButton.selected = [item.userLikes boolValue];
+	[self.collectionView reloadData];
 }
 
 - (void)setItemSize {
@@ -70,7 +70,8 @@
 	layout.minimumInteritemSpacing = inset;
 	layout.minimumLineSpacing = inset;
 	layout.itemSize = cellSize;
-
+	self.collectionViewHeight.constant = (self.newsFeedItem.attachments.count > 1) ? cellWidth : 0;
+	
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -89,6 +90,7 @@
 		NSURL *url = [NSURL URLWithString:imageURL];
 		NSURLRequest *request = [NSURLRequest requestWithURL:url];
 		UIImage *placeholder = [UIImage imageNamed:@"placeholder"];
+		newsFeedCell.imageView.image = nil;
 		[newsFeedCell.imageView setImageWithURLRequest:request
 									placeholderImage:placeholder
 											 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
